@@ -50,7 +50,7 @@ export default {
     return {
       username: "",
       password: "",
-      isActive: 1,
+      isActive: 0
     };
   },
   methods: {
@@ -59,25 +59,24 @@ export default {
       console.log("login function");
       this.$store.dispatch("AUTH/login", {
         username: this.username,
-        password: this.password,
+        password: this.password
       });
       this.$router.push("/");
     },
     register() {
       this.$store.dispatch("AUTH/register", {
         username: this.username,
-        password: this.password,
+        password: this.password
       });
-      this.$router.push("/");
     },
     handleLogin() {
       this.isActive = 0;
     },
     handleRegister() {
       this.isActive = 1;
-    },
+    }
   },
-  computed: {},
+  computed: {}
 };
 </script>
 

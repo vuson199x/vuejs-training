@@ -3,16 +3,18 @@
     <!-- {{ user.id }} -->
     <ul>
       <li>
-        <router-link :to="{ name: 'Home' }">Home</router-link>
+        <router-link to="/">Home</router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'Tags' }">Tags</router-link>
+        <router-link :to="`/tags/${result ? result.id : 1}`">Tags</router-link>
       </li>
       <li>
-        <router-link :to="{ name: 'Category' }">Category</router-link>
+        <router-link :to="`/category/${result ? result.id : 1}`"
+          >Category</router-link
+        >
       </li>
       <li style="float: right" class="active">
-        <router-link :to="{ name: 'Tags' }">Đăng xuất</router-link>
+        <router-link to="/">Đăng xuất</router-link>
       </li>
     </ul>
   </div>
@@ -25,7 +27,7 @@ export default {
   data() {
     return {
       text: "Header",
-      posts: [],
+      posts: []
     };
   },
   methods: {
@@ -40,15 +42,16 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
+    }
   },
-  // store,
   computed: {
-    ...mapState(["user"]),
+    result() {
+      return this.$store.state.AUTH.user;
+    }
   },
   created() {
     this.getData();
-  },
+  }
 };
 </script>
 

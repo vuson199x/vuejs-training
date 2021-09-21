@@ -1,7 +1,8 @@
 import AuthServices from "../../ApiService/modules/auth";
 
 const state = {
-  user: null
+  user: null,
+  result: 0
 };
 const getters = {};
 const mutations = {
@@ -19,9 +20,10 @@ const actions = {
       const response = await AuthServices.login(payload);
       console.log("Login từ Store", response);
       // commit("DO_SOMETHING");
-      state.user = response.data;
+      state.user = response;
+      console.log(state.user, "state.user");
     } catch (error) {
-      console.log(error);
+      console.log(error, "error");
       // swal({
       //   title: "Lỗi",
       //   text: "Tài khoản hoặc mật khẩu không hợp lệ",
@@ -47,7 +49,7 @@ const actions = {
       //   icon: "error"
       // });
     }
-  },
+  }
 };
 
 export default {
