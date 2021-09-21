@@ -28,7 +28,7 @@ export default {
 #myInput {
   background-position: 10px 10px;
   background-repeat: no-repeat;
-  width: 80%;
+  width: 50%;
   font-size: 16px;
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
@@ -76,9 +76,16 @@ export default {
 }
 
 .container {
-  max-width: 1440px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 0.5rem;
+}
+
+.display-center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 1rem;
 }
 
 #table {

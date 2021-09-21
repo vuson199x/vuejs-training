@@ -10,6 +10,9 @@
         v-on:keyup.enter="onSeach"
       />
       <button class="button success">Tìm kiếm</button>
+      <button class="button success" v-on:click="isVisibleModal">
+        Thêm mới
+      </button>
     </div>
     <table id="table">
       <tr>
@@ -21,7 +24,9 @@
         <td style="width: 150px">{{ category.id }}</td>
         <td>{{ category.name }}</td>
         <td style="text-align: center, width: 200px">
-          <button class="sm-button primary">Edit</button>
+          <button class="sm-button primary" v-on:click="isVisibleModal">
+            Edit
+          </button>
           <button
             class="sm-button success"
             v-on:click="$router.push(`/category/${id}/${category.id}`)"
@@ -34,21 +39,37 @@
         </td>
       </tr>
     </table>
+
+    <AddEditCategory
+      v-bind:isVisible="isVisible"
+      v-on:handleCancelEvent="handleCancelEvent"
+    />
   </div>
 </template>
 
 <script>
 import CategoryService from "../../ApiService/modules/apiCategory";
+import AddEditCategory from "../Category/AddEditCategory.vue";
 
 export default {
   data() {
     return {
       id: this.$route.params.id,
       categories: [],
-      user: null
+      user: null,
+      isVisible: false
     };
   },
+  components: {
+    AddEditCategory
+  },
   methods: {
+    isVisibleModal() {
+      this.isVisible = true;
+    },
+    handleCancelEvent() {
+      this.isVisible = false;
+    },
     async onDelete(category) {
       console.log("category", category);
       try {

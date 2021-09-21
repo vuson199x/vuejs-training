@@ -3,22 +3,30 @@
     <!-- {{ user.id }} -->
     <ul>
       <li>
-        <router-link to="/">Home</router-link>
+        <router-link to="/" active-class="active" exact="">Home</router-link>
       </li>
       <li>
-        <router-link :to="`/tags/${result ? result.id : 1}`">Tags</router-link>
+        <router-link
+          :to="`/tags/${result ? result.id : 1}`"
+          active-class="active"
+          >Tags</router-link
+        >
       </li>
       <li>
-        <router-link :to="`/category/${result ? result.id : 1}`"
+        <router-link
+          :to="`/category/${result ? result.id : 1}`"
+          active-class="active"
           >Category</router-link
         >
       </li>
       <li>
-        <router-link :to="`/product/${result ? result.id : 1}`"
+        <router-link
+          :to="`/product/${result ? result.id : 1}`"
+          active-class="active"
           >Product</router-link
         >
       </li>
-      <li style="float: right" class="active" v-on:click="Logout">
+      <li style="float: right" active-class="active" v-on:click="Logout">
         <router-link to="/login">Đăng xuất</router-link>
       </li>
     </ul>
