@@ -17,7 +17,7 @@ const actions = {
         username: crendentials.username,
         password: crendentials.password
       };
-      const response = await AuthServices.login(payload);
+      const response = await AuthServices.login({ ...crendentials });
       console.log("Login từ Store", response);
       // commit("DO_SOMETHING");
       state.user = response;
@@ -33,21 +33,12 @@ const actions = {
   },
   async register({ commit }, crendentials) {
     try {
-      const payload = {
-        username: crendentials.username,
-        password: crendentials.password
-      };
-      const response = await AuthServices.register(payload);
+      const response = await AuthServices.register({ ...crendentials });
       console.log("Register từ Store", response);
-      // commit("DO_SOMETHING");
-      // state.user = response.data;
+      alert(response.message);
     } catch (error) {
       console.log(error);
-      // swal({
-      //   title: "Lỗi",
-      //   text: "Tài khoản hoặc mật khẩu không hợp lệ",
-      //   icon: "error"
-      // });
+      // alert(response.message);
     }
   }
 };

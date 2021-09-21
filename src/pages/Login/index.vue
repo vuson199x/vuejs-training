@@ -37,6 +37,10 @@
             <label for="password">Password</label>
             <input id="password" type="password" v-model="password" />
           </div>
+          <div>
+            <label for="adđress">Địa chỉ</label>
+            <input id="adđress" type="text" v-model="title" />
+          </div>
           <button>Đăng ký</button>
         </form>
       </div>
@@ -50,6 +54,7 @@ export default {
     return {
       username: "",
       password: "",
+      title: "",
       isActive: 0
     };
   },
@@ -61,22 +66,38 @@ export default {
         username: this.username,
         password: this.password
       });
+
       this.$router.push("/");
     },
     register() {
+      console.log("this.username", this.username);
+      console.log("this.password", this.password);
       this.$store.dispatch("AUTH/register", {
         username: this.username,
-        password: this.password
+        password: this.password,
+        title: this.title
       });
+      this.isActive = 0;
+      this.username = "";
+      this.password = "";
+      // this.$router.push("/");
     },
     handleLogin() {
       this.isActive = 0;
+      this.username = "";
+      this.password = "";
     },
     handleRegister() {
       this.isActive = 1;
+      this.username = "";
+      this.password = "";
     }
   },
-  computed: {}
+  computed: {
+    result() {
+      return this.$store.state.AUTH.user;
+    }
+  }
 };
 </script>
 
@@ -120,8 +141,8 @@ export default {
   text-align: center;
 }
 
-input[type="text"],
-input[type="password"] {
+.login-form input[type="text"],
+.login-form input[type="password"] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -131,7 +152,7 @@ input[type="password"] {
   outline: none;
 }
 
-button {
+.login-form button {
   background-color: #04aa6d;
   color: white;
   padding: 14px 20px;
@@ -141,7 +162,7 @@ button {
   width: 100%;
 }
 
-button:hover {
+.login-form button:hover {
   opacity: 0.8;
 }
 
@@ -156,18 +177,8 @@ button:hover {
   margin: 24px 0 12px 0;
 }
 
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
-
 .container {
   padding: 16px;
-}
-
-span.psw {
-  float: right;
-  padding-top: 16px;
 }
 
 /* Change styles for span and cancel button on extra small screens */

@@ -5,7 +5,7 @@ export default {
     console.log("data", data);
     return Api().post("/api/auth/signin", data);
   },
-  register() {
-    return Api().post("/api/auth/signup");
+  register(data) {
+    return Api().post("/api/auth/signup", data);
   }
 };

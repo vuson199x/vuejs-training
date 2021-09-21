@@ -38,8 +38,7 @@ export default () => {
       data.code === API_STATUS.NOT_FOUND
     ) {
       Cookies.set(SESSION_ID, "");
-      localStorage.setItem("token", "");
-    } else {
+    } else if (data.accessToken) {
       console.log(data.accessToken, "data.accessToken");
       Cookies.set(SESSION_ID, data.accessToken);
     }

@@ -5,7 +5,6 @@
   </div>
 </template>
 
-
 <script>
 import CompHeader from "./components/CompHeader.vue";
 
@@ -13,10 +12,8 @@ export default {
   components: { CompHeader },
   name: "app",
   data() {
-    return {
-      msg: "Welcome to Your Vue.js App",
-    };
-  },
+    return {};
+  }
 };
 </script>
 
@@ -28,9 +25,60 @@ export default {
   color: #2c3e50;
 }
 
+#myInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 80%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.search-Input {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sm-button {
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.success {
+  background-color: #4caf50; /* Green */
+}
+
+.primary {
+  background-color: #239dc2; /* Green */
+}
+
+.danger {
+  background-color: #c2234b;
+}
+
 .container {
-  width: 1300px;
-  padding: 20px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 0.5rem;
 }
 
 #table {

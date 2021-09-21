@@ -1,5 +1,5 @@
 <template>
-  <div class="nav">
+  <div class="nav" v-if="cookies">
     <!-- {{ user.id }} -->
     <ul>
       <li>
@@ -13,44 +13,39 @@
           >Category</router-link
         >
       </li>
-      <li style="float: right" class="active">
-        <router-link to="/">Đăng xuất</router-link>
+      <li>
+        <router-link :to="`/product/${result ? result.id : 1}`"
+          >Product</router-link
+        >
+      </li>
+      <li style="float: right" class="active" v-on:click="Logout">
+        <router-link to="/login">Đăng xuất</router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import Cookies from "js-cookie";
+import { SESSION_ID } from "../utils/contants";
+
 export default {
   name: "compheader",
   data() {
     return {
-      text: "Header",
-      posts: []
+      cookies: Cookies.get(SESSION_ID)
     };
   },
   methods: {
-    async getData() {
-      console.log("zxczxczxczxc");
-      try {
-        // const response = await this.$http.get(
-        //   "http://jsonplaceholder.typicode.com/posts"
-        // );
-        // console.log('response', response)
-        // this.posts = response.data;
-      } catch (error) {
-        console.log(error);
-      }
+    Logout() {
+      Cookies.set(SESSION_ID, "");
+      console.log("12312312312313");
     }
   },
   computed: {
     result() {
       return this.$store.state.AUTH.user;
     }
-  },
-  created() {
-    this.getData();
   }
 };
 </script>
