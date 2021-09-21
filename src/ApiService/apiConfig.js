@@ -40,6 +40,7 @@ export default () => {
       Cookies.set(SESSION_ID, "");
       localStorage.setItem("token", "");
     } else {
+      console.log(data.accessToken, "data.accessToken");
       Cookies.set(SESSION_ID, data.accessToken);
     }
     // else if (data && data.status !== API_CODE.SUCCESS) {
@@ -49,7 +50,7 @@ export default () => {
     //     icon: "error"
     //   });
     // }
-    return response;
+    return data;
   });
   return instance;
 };
