@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../pages";
 import Tags from "../pages/Tags";
+import Category from "../pages/Category";
 import Login from "../pages/Login";
 Vue.use(VueRouter);
 
@@ -12,9 +13,14 @@ const routes = [
     component: Home
   },
   {
-    path: "/tags",
+    path: "/tags/:id",
     name: "Tags",
     component: Tags
+  },
+  {
+    path: "/category/:id",
+    name: "Category",
+    component: Category
   },
   {
     path: "/login",

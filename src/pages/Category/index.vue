@@ -1,6 +1,7 @@
-<template>
-  <div class="container">
+<template lang="">
+    <div class="container">
     <h1>Tags</h1>
+    <!-- {{ this.$route.params.id }} -->
     <table id="table">
       <tr>
         <th>Company</th>
@@ -15,10 +16,8 @@
     </table>
   </div>
 </template>
-
 <script>
 export default {};
 </script>
-
 <style>
 </style>
