@@ -63,10 +63,12 @@
     </table>
 
     <AddEditCategory
+      v-if="isVisible"
       v-bind:isVisible="isVisible"
       v-bind:dataUpdate="dataUpdate"
       v-on:handleCancelEvent="handleCancelEvent"
       v-on:onCreateCategory="onCreateCategory"
+      v-on:onUpdateCategory="onUpdateCategory"
     />
   </div>
 </template>
@@ -119,20 +121,47 @@ export default {
       this.dataUpdate = null;
       this.isVisible = false;
     },
+    async onUpdateCategory(name) {
+      console.log("name", name);
+      try {
+        const payload = {
+          id: this.id,
+          data: {
+            name: name,
+            user_id: this.id
+          }
+        };
+        await CategoryService.putCategory(payload);
+        this.getData();
+        this.isVisible = false;
+        this.dataUpdate = null;
+        swal({
+          title: "Success",
+          text: `Update "${name}" category successfully!`,
+          icon: "success"
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async onCreateCategory(name) {
       console.log(name);
-      const payload = {
-        name: name,
-        user_id: this.id
-      };
-      await CategoryService.postCategory(payload);
-      this.getData();
-      this.isVisible = false;
-      swal({
-        title: "Success",
-        text: `Add "${name}" category successfully!`,
-        icon: "success"
-      });
+      try {
+        const payload = {
+          name: name,
+          user_id: this.id
+        };
+        await CategoryService.postCategory(payload);
+        this.getData();
+        this.isVisible = false;
+        swal({
+          title: "Success",
+          text: `Add "${name}" category successfully!`,
+          icon: "success"
+        });
+      } catch (error) {
+        console.log(error);
+      }
     },
     async onDelete(category) {
       console.log("category", category);

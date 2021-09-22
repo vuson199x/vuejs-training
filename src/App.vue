@@ -7,7 +7,7 @@
 
 <script>
 import CompHeader from "./common/CompHeader.vue";
-
+import "ant-design-vue/dist/antd.css";
 export default {
   components: { CompHeader },
   name: "app",
@@ -176,18 +176,6 @@ h2 {
   font-weight: normal;
 }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  /* margin: 0 10px; */
-}
-
 a {
   color: #42b983;
 }
@@ -195,14 +183,15 @@ a {
   width: 550px;
 }
 
-.add-edit input[type="text"],
-.add-edit input[type="password"] {
+.add-edit .form-control,
+.add-edit textarea {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  outline: none;
 }
 
 .add-edit .container {

@@ -114,6 +114,7 @@ export default {
 }
 .tabs-form div {
   width: 50%;
+  padding: 13px 0px 0px;
 }
 
 .tabs-form p {

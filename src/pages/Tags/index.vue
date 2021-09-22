@@ -1,7 +1,6 @@
 <template lang="">
   <div class="container">
     <h1>Tags</h1>
-    <!-- {{ result }} -->
     <div class="search-Input">
       <input
         type="text"
@@ -60,10 +59,12 @@
     </table>
 
     <AddEditTag
+      v-if="isVisible"
       v-bind:isVisible="isVisible"
       v-bind:dataUpdate="dataUpdate"
       v-on:handleCancelEvent="handleCancelEvent"
       v-on:onCreateTag="onCreateTag"
+      v-on:onUpdateTag="onUpdateTag"
     />
   </div>
 </template>
@@ -156,6 +157,24 @@ export default {
       swal({
         title: "Success",
         text: `Add "${name}" tag successfully!`,
+        icon: "success"
+      });
+    },
+    async onUpdateTag(name) {
+      const payload = {
+        id: this.id,
+        data: {
+          name: name,
+          user_id: this.id
+        }
+      };
+      await TagService.putTag(payload);
+      this.getData();
+      this.isVisible = false;
+      this.dataUpdate = null;
+      swal({
+        title: "Success",
+        text: `Update "${name}" tag successfully!`,
         icon: "success"
       });
     }

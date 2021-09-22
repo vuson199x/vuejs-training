@@ -1,9 +1,8 @@
 <template>
   <div class="add-edit">
     <div id="id01" class="modal" v-if="isVisible">
-      <form @submit.prevent="onAddCategory" class="modal-content animate">
+      <form @submit.prevent="onSubmitCategory" class="modal-content animate">
         <div class="imgcontainer">
-          {{ dataUpdate }}
           <h3>{{ dataUpdate ? "Edit Category" : "Add new Category" }}</h3>
           <span class="close" title="Close Modal" v-on:click="onCancelModal"
             >&times;</span
@@ -18,6 +17,7 @@
             name="category"
             required
             v-model="name"
+            class="form-control"
           />
 
           <button class="sm-button success display-center">
@@ -42,30 +42,27 @@ export default {
     dataUpdate: {
       type: Object,
       required: false,
-      default: null
+      default: {}
     }
   },
   methods: {
     onCancelModal() {
       this.$emit("handleCancelEvent");
     },
-    onAddCategory() {
-      this.$emit("onCreateCategory", this.name);
-      this.name = "";
+    onSubmitCategory() {
+      if (!this.dataUpdate) {
+        this.$emit("onCreateCategory", this.name);
+        this.name = "";
+      } else {
+        this.$emit("onUpdateCategory", this.name);
+        this.name = "";
+      }
     }
   },
   created() {
-    console.log("this.dataUpdate created", this.dataUpdate);
+    this.name = this.dataUpdate ? this.dataUpdate.name : "";
   },
-  mounted() {
-    console.log("this.dataUpdate mounted", this.dataUpdate);
-  },
-  activated() {
-    console.log("this.dataUpdate activated", this.dataUpdate);
-  },
-  destroyed() {
-    console.log("this.dataUpdate destroyed", this.dataUpdate);
-  },
+
   computed: {}
 };
 </script>

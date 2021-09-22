@@ -1,7 +1,6 @@
 <template lang="">
   <div class="container">
     <h1>Product</h1>
-    {{ params.keyword }}
     <div class="search-Input">
       <input
         type="text"
@@ -68,6 +67,7 @@
     </table>
 
     <AddEditProduct
+      v-if="isVisible"
       v-bind:isVisible="isVisible"
       v-bind:dataUpdate="dataUpdate"
       v-on:handleCancelEvent="handleCancelEvent"
@@ -138,20 +138,20 @@ export default {
         console.log(error);
       }
     },
-    async onCreateProduct(name) {
-      console.log(name);
-      // const payload = {
-      //   name: name,
-      //   user_id: this.id
-      // };
-      // await CategoryService.postCategory(payload);
-      // this.getData();
-      // this.isVisible = false;
-      // swal({
-      //   title: "Success",
-      //   text: `Add "${name}" category successfully!`,
-      //   icon: "success"
-      // });
+    async onCreateProduct(data) {
+      console.log(data);
+      const payload = {
+        ...data,
+        user_id: this.id
+      };
+      await ProductService.postProduct(payload);
+      this.getData();
+      this.isVisible = false;
+      swal({
+        title: "Success",
+        text: `Add "${name}" product successfully!`,
+        icon: "success"
+      });
     },
     async getData() {
       console.log("id", this.id);

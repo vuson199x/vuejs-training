@@ -70,7 +70,7 @@ export default {
 /* .nav {
   background: red;
 } */
-ul {
+.nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -78,11 +78,11 @@ ul {
   background-color: #333;
 }
 
-li {
+.nav li {
   float: left;
 }
 
-li a {
+.nav li a {
   display: block;
   color: white;
   text-align: center;
@@ -90,7 +90,7 @@ li a {
   text-decoration: none;
 }
 
-li a:hover:not(.active) {
+.nav li a:hover:not(.active) {
   background-color: #111;
 }
 

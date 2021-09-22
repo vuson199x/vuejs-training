@@ -12,5 +12,8 @@ export default {
   },
   postTag(data) {
     return Api().post(`/api/tag/create`, data);
+  },
+  putTag(payload) {
+    return Api().put(`/api/tag/update/${payload.id}`, payload.data);
   }
 };

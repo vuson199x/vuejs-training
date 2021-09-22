@@ -10,6 +10,9 @@ export default {
   deleteProduct(id) {
     return Api().delete(`/api/qa/delete/${id}`);
   },
+  postProduct(data) {
+    return Api().post(`/api/qa/create`, data);
+  },
   getListDetail(id) {
     return Api().get(`/api/qa/detail/${id}`);
   }

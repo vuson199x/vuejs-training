@@ -10,6 +10,9 @@ export default {
   postCategory(data) {
     return Api().post(`/api/category/create`, data);
   },
+  putCategory(payload) {
+    return Api().put(`/api/category/update/${payload.id}`, payload.data);
+  },
   deleteCategory(id) {
     return Api().delete(`/api/category/delete/${id}`);
   },

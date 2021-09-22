@@ -1,9 +1,8 @@
 <template>
   <div class="add-edit">
     <div id="id01" class="modal" v-if="isVisible">
-      <form @submit.prevent="onAddTag" class="modal-content animate">
+      <form @submit.prevent="onSubmitTag" class="modal-content animate">
         <div class="imgcontainer">
-          {{ dataUpdate }}
           <h3>{{ dataUpdate ? "Edit Tag" : "Add new Tag" }}</h3>
           <span class="close" title="Close Modal" v-on:click="onCancelModal"
             >&times;</span
@@ -18,6 +17,7 @@
             name="tag"
             required
             v-model="name"
+            class="form-control"
           />
 
           <button class="sm-button success display-center">
@@ -49,22 +49,18 @@ export default {
     onCancelModal() {
       this.$emit("handleCancelEvent");
     },
-    onAddTag() {
-      this.$emit("onCreateTag", this.name);
-      this.name = "";
+    onSubmitTag() {
+      if (!this.dataUpdate) {
+        this.$emit("onCreateTag", this.name);
+        this.name = "";
+      } else {
+        this.$emit("onUpdateTag", this.name);
+        this.name = "";
+      }
     }
   },
   created() {
-    console.log("this.dataUpdate created", this.dataUpdate);
-  },
-  mounted() {
-    console.log("this.dataUpdate mounted", this.dataUpdate);
-  },
-  activated() {
-    console.log("this.dataUpdate activated", this.dataUpdate);
-  },
-  destroyed() {
-    console.log("this.dataUpdate destroyed", this.dataUpdate);
+    this.name = this.dataUpdate ? this.dataUpdate.name : "";
   },
   computed: {}
 };
