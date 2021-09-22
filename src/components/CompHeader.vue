@@ -1,5 +1,5 @@
 <template>
-  <div class="nav" v-if="cookies">
+  <div class="nav">
     <!-- {{ user.id }} -->
     <ul>
       <li>
@@ -27,6 +27,14 @@
         >
       </li>
       <li style="float: right" active-class="active" v-on:click="Logout">
+        <router-link to="/login">Đăng nhập</router-link>
+      </li>
+      <li
+        style="float: right"
+        active-class="active"
+        v-on:click="Logout"
+        v-if="cookies"
+      >
         <router-link to="/login">Đăng xuất</router-link>
       </li>
     </ul>
