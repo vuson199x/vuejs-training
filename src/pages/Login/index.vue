@@ -67,7 +67,7 @@ export default {
         password: this.password
       });
 
-      this.$router.push("/");
+      // this.$router.push("/");
     },
     register() {
       console.log("this.username", this.username);

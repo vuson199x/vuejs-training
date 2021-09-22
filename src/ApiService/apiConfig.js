@@ -10,16 +10,11 @@ import {
 } from "../utils/contants";
 
 export default () => {
-  // return request.create({
-  //   baseURL: BASE_URL_DEV,
-  //   // withCredentials: true, //Nếu có cookies sẽ gửi n cùng với từng request
-  //   timeout: 20000,
-  //   headers: { "Content-Type": "application/json" }
-  // });
   const instance = axios.create({
     baseURL: BASE_URL_DEV,
     timeout: 20000,
     headers: { "Content-Type": "application/json" }
+    // withCredentials: true, //Nếu có cookies sẽ gửi n cùng với từng request
   });
   instance.defaults.headers.common = {
     Authorization: `Bearer ${Cookies.get(SESSION_ID)}`
@@ -34,7 +29,7 @@ export default () => {
   );
   instance.interceptors.response.use(response => {
     const data = response.data;
-    console.log(data, "data response 34");
+    console.log(response, "data response 34");
     if (
       (data && data.code === API_STATUS.RE_LOGIN) ||
       data.code === API_STATUS.NOT_FOUND

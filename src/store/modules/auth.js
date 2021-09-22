@@ -1,5 +1,6 @@
+import swal from "sweetalert";
 import AuthServices from "../../ApiService/modules/auth";
-
+import router from "../../routes";
 const state = {
   user: null,
   result: 0
@@ -13,32 +14,38 @@ const mutations = {
 const actions = {
   async login({ commit }, crendentials) {
     try {
-      const payload = {
-        username: crendentials.username,
-        password: crendentials.password
-      };
       const response = await AuthServices.login({ ...crendentials });
       console.log("Login từ Store", response);
       // commit("DO_SOMETHING");
       state.user = response;
+      router.push("/");
       console.log(state.user, "state.user");
     } catch (error) {
-      console.log(error, "error");
-      // swal({
-      //   title: "Lỗi",
-      //   text: "Tài khoản hoặc mật khẩu không hợp lệ",
-      //   icon: "error"
-      // });
+      console.log(error.response);
+      swal({
+        title: "Lỗi",
+        text: error.response.data.message,
+        icon: "error"
+      });
     }
   },
   async register({ commit }, crendentials) {
     try {
       const response = await AuthServices.register({ ...crendentials });
       console.log("Register từ Store", response);
-      alert(response.message);
-    } catch (error) {
-      console.log(error);
       // alert(response.message);
+      swal({
+        title: "Thành công",
+        text: response.message,
+        icon: "success"
+      });
+    } catch (error) {
+      console.log(error.response);
+      swal({
+        title: "Lỗi",
+        text: error.response.data.message,
+        icon: "error"
+      });
     }
   }
 };
