@@ -21,7 +21,7 @@
         <th>ID</th>
         <th>Name</th>
         <th>UserId</th>
-        <th>Qas</th>
+        <th>Product</th>
         <th></th>
       </tr>
       <tr v-for="tag in tags">
@@ -47,11 +47,19 @@
         </button>
       </tr>
     </table>
+
+    <AddEditTag
+      v-bind:isVisible="isVisible"
+      v-bind:dataUpdate="dataUpdate"
+      v-on:handleCancelEvent="handleCancelEvent"
+      v-on:onCreateTag="onCreateTag"
+    />
   </div>
 </template>
+
 <script>
 import TagService from "../../ApiService/modules/apiTag";
-
+import AddEditTag from "../Tags/components/AddEditTag.vue";
 export default {
   data() {
     return {
@@ -61,12 +69,15 @@ export default {
       isVisible: false,
       params: {
         page: 1,
-        size: 18,
+        size: 0,
         sortName: "",
         sortType: "",
         keyword: ""
       }
     };
+  },
+  components: {
+    AddEditTag
   },
   methods: {
     isVisibleEditModal(data) {
@@ -111,6 +122,21 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async onCreateTag(name) {
+      console.log(name);
+      const payload = {
+        name: name,
+        user_id: this.id
+      };
+      await TagService.postTag(payload);
+      this.getData();
+      this.isVisible = false;
+      swal({
+        title: "Success",
+        text: `Add "${name}" tag successfully!`,
+        icon: "success"
+      });
     }
   },
   computed: {

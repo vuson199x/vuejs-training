@@ -61,6 +61,7 @@ export default {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
+  /* margin: 8px; */
 }
 
 .success {

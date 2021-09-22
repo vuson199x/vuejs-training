@@ -9,5 +9,8 @@ export default {
   },
   deleteTag(id) {
     return Api().delete(`/api/tag/delete/${id}`);
+  },
+  postTag(data) {
+    return Api().post(`/api/tag/create`, data);
   }
 };
