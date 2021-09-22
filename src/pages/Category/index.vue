@@ -13,12 +13,17 @@
           v-model="params.keyword"
         />
         <button class="button success" v-on:click="onSeach">Search</button>
-        <!-- <select class="form-control custom-select" id="sel1">
-          <option></option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-        </select> -->
+        <div class="dropdown">
+          <button class="dropbtn">Sắp xếp</button>
+          <div class="dropdown-content">
+            <span
+              v-on:click="sortType('asc')"
+              v-bind:class="{ sortSelected: sortType === 'asc' }"
+              >Asc</span
+            >
+            <span v-on:click="sortType('desc')">Desc</span>
+          </div>
+        </div>
         <button
           style="float: right"
           class="button success"
@@ -44,12 +49,12 @@
           >
             Edit
           </button>
-          <button
+          <!-- <button
             class="sm-button success"
             v-on:click="$router.push(`/category/${id}/${category.id}`)"
           >
             Detail
-          </button>
+          </button> -->
           <button class="sm-button danger" v-on:click="onDelete(category)">
             Detele
           </button>
@@ -81,8 +86,8 @@ export default {
       params: {
         page: 1,
         size: 0,
-        sortName: "id",
-        sortType: "desc",
+        sortName: "name",
+        sortType: "",
         keyword: ""
       }
     };
@@ -96,6 +101,11 @@ export default {
     },
     sortName(value) {
       this.params.sortName = value;
+      this.getData();
+    },
+    sortType(value) {
+      console.log(value, "value");
+      this.params.sortType = value;
       this.getData();
     },
     isVisibleEditModal(data) {

@@ -11,7 +11,18 @@
         v-model="params.keyword"
       />
       <button class="button success" v-on:click="onSeach">Search</button>
-      <button class="button success" v-on:click="isVisibleAddModal">
+      <div class="dropdown">
+        <button class="dropbtn">Sắp xếp</button>
+        <div class="dropdown-content">
+          <span v-on:click="sortType('asc')">Asc</span>
+          <span v-on:click="sortType('desc')">Desc</span>
+        </div>
+      </div>
+      <button
+        class="button success"
+        style="float: right"
+        v-on:click="isVisibleAddModal"
+      >
         Add new product
       </button>
     </div>
@@ -42,12 +53,13 @@
           >
             Sửa
           </button>
-          <button
+          <!-- <button
             class="sm-button success"
             v-on:click="$router.push(`/product/${id}/${product.id}`)"
           >
             Detail
-          </button>
+          </button> -->
+
           <button class="sm-button danger" v-on:click="onDelete(product)">
             Xóa
           </button>
@@ -76,8 +88,8 @@ export default {
       params: {
         page: 1,
         size: 0,
-        sortName: "id",
-        sortType: "desc",
+        sortName: "title",
+        sortType: "",
         keyword: ""
       }
     };
@@ -98,6 +110,11 @@ export default {
       this.isVisible = false;
     },
     onSeach(e) {
+      this.getData();
+    },
+    sortType(value) {
+      console.log(value, "value");
+      this.params.sortType = value;
       this.getData();
     },
     sortName(value) {
