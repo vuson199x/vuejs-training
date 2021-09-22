@@ -21,7 +21,9 @@ export default () => {
     timeout: 20000,
     headers: { "Content-Type": "application/json" }
   });
-
+  instance.defaults.headers.common = {
+    Authorization: `Bearer ${Cookies.get(SESSION_ID)}`
+  };
   instance.interceptors.request.use(
     async config => {
       console.log(config, "config request 27");
