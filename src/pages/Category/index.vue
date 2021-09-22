@@ -121,13 +121,13 @@ export default {
       this.dataUpdate = null;
       this.isVisible = false;
     },
-    async onUpdateCategory(name) {
+    async onUpdateCategory(data) {
       console.log("name", name);
       try {
         const payload = {
-          id: this.id,
+          id: data.id,
           data: {
-            name: name,
+            name: data.name,
             user_id: this.id
           }
         };
@@ -137,7 +137,7 @@ export default {
         this.dataUpdate = null;
         swal({
           title: "Success",
-          text: `Update "${name}" category successfully!`,
+          text: `Update category successfully!`,
           icon: "success"
         });
       } catch (error) {
@@ -156,7 +156,7 @@ export default {
         this.isVisible = false;
         swal({
           title: "Success",
-          text: `Add "${name}" category successfully!`,
+          text: `Add category successfully!`,
           icon: "success"
         });
       } catch (error) {
@@ -171,7 +171,7 @@ export default {
           this.getData();
           swal({
             title: "Success",
-            text: `Delete category "${category.name}" successfully!`,
+            text: `Delete category successfully!`,
             icon: "success"
           });
         }

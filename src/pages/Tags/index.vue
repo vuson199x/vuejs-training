@@ -124,7 +124,7 @@ export default {
           this.getData();
           swal({
             title: "Success",
-            text: `Delete ${tag.name} successfully!`,
+            text: `Delete tag successfully!`,
             icon: "success"
           });
         }
@@ -156,15 +156,15 @@ export default {
       this.isVisible = false;
       swal({
         title: "Success",
-        text: `Add "${name}" tag successfully!`,
+        text: `Add tag successfully!`,
         icon: "success"
       });
     },
-    async onUpdateTag(name) {
+    async onUpdateTag(data) {
       const payload = {
-        id: this.id,
+        id: data.id,
         data: {
-          name: name,
+          name: data.name,
           user_id: this.id
         }
       };
@@ -174,7 +174,7 @@ export default {
       this.dataUpdate = null;
       swal({
         title: "Success",
-        text: `Update "${name}" tag successfully!`,
+        text: `Update tag successfully!`,
         icon: "success"
       });
     }

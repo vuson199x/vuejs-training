@@ -13,6 +13,9 @@ export default {
   postProduct(data) {
     return Api().post(`/api/qa/create`, data);
   },
+  putProduct(payload) {
+    return Api().put(`/api/qa/update/${payload.id}`, payload.data);
+  },
   getListDetail(id) {
     return Api().get(`/api/qa/detail/${id}`);
   }

@@ -34,6 +34,7 @@ export default {
   name: "addeditcategory",
   data() {
     return {
+      id: "",
       name: ""
     };
   },
@@ -53,14 +54,21 @@ export default {
       if (!this.dataUpdate) {
         this.$emit("onCreateCategory", this.name);
         this.name = "";
+        this.id = "";
       } else {
-        this.$emit("onUpdateCategory", this.name);
+        const data = {
+          id: this.id,
+          name: this.name
+        };
+        this.$emit("onUpdateCategory", data);
         this.name = "";
+        this.id = "";
       }
     }
   },
   created() {
     this.name = this.dataUpdate ? this.dataUpdate.name : "";
+    this.id = this.dataUpdate ? this.dataUpdate.id : "";
   },
 
   computed: {}

@@ -34,7 +34,8 @@ export default {
   name: "addedittag",
   data() {
     return {
-      name: ""
+      name: "",
+      id: ""
     };
   },
   props: {
@@ -53,14 +54,21 @@ export default {
       if (!this.dataUpdate) {
         this.$emit("onCreateTag", this.name);
         this.name = "";
+        this.id = "";
       } else {
-        this.$emit("onUpdateTag", this.name);
+        const data = {
+          id: this.id,
+          name: this.name
+        };
+        this.$emit("onUpdateTag", data);
         this.name = "";
+        this.id = "";
       }
     }
   },
   created() {
     this.name = this.dataUpdate ? this.dataUpdate.name : "";
+    this.id = this.dataUpdate ? this.dataUpdate.id : "";
   },
   computed: {}
 };

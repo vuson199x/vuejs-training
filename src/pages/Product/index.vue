@@ -72,6 +72,7 @@
       v-bind:dataUpdate="dataUpdate"
       v-on:handleCancelEvent="handleCancelEvent"
       v-on:onCreateProduct="onCreateProduct"
+      v-on:onUpdateProduct="onUpdateProduct"
     />
   </div>
 </template>
@@ -130,7 +131,7 @@ export default {
           this.getData();
           swal({
             title: "Success",
-            text: `Delete ${product.title} successfully!`,
+            text: `Delete product successfully!`,
             icon: "success"
           });
         }
@@ -149,7 +150,25 @@ export default {
       this.isVisible = false;
       swal({
         title: "Success",
-        text: `Add "${name}" product successfully!`,
+        text: `Add product successfully!`,
+        icon: "success"
+      });
+    },
+    async onUpdateProduct(data) {
+      console.log(data);
+      const payload = {
+        id: data.id,
+        data: {
+          ...data,
+          user_id: this.id
+        }
+      };
+      await ProductService.putProduct(payload);
+      this.getData();
+      this.isVisible = false;
+      swal({
+        title: "Success",
+        text: `Update product successfully!`,
         icon: "success"
       });
     },

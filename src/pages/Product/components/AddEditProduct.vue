@@ -85,6 +85,7 @@ export default {
   name: "addeditproduct",
   data() {
     return {
+      id: "",
       title: "",
       description: "",
       tags: [],
@@ -136,7 +137,11 @@ export default {
           this.url = "";
           this.category = 0;
         } else {
-          this.$emit("onUpdateProduct", data);
+          const updateData = {
+            id: this.id,
+            ...data
+          };
+          this.$emit("onUpdateProduct", updateData);
           this.title = "";
           this.description = "";
           this.tags = [];
@@ -173,6 +178,7 @@ export default {
   created() {
     this.getDataCatgory();
     this.getDataTags();
+    this.id = this.dataUpdate.id;
     this.title = this.dataUpdate.title;
     this.description = this.dataUpdate.description;
     this.tags = this.dataUpdate.tags;
@@ -182,6 +188,7 @@ export default {
   computed: {}
 };
 </script>
+
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
 .add-edit .multiselect__placeholder {

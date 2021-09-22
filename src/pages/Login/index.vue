@@ -17,11 +17,11 @@
         <form @submit.prevent="login">
           <div>
             <label for="username">Username</label>
-            <input id="username" type="text" v-model="username" />
+            <input id="username" type="text" v-model="username" required />
           </div>
           <div>
             <label for="password">Password</label>
-            <input id="password" type="password" v-model="password" />
+            <input id="password" type="password" v-model="password" required />
           </div>
           <button>Đăng nhập</button>
         </form>
@@ -31,15 +31,15 @@
         <form @submit.prevent="register">
           <div>
             <label for="username">Username</label>
-            <input id="username" type="text" v-model="username" />
+            <input id="username" type="text" v-model="username" required />
           </div>
           <div>
             <label for="password">Password</label>
-            <input id="password" type="password" v-model="password" />
+            <input id="password" type="password" v-model="password" required />
           </div>
           <div>
             <label for="adđress">Địa chỉ</label>
-            <input id="adđress" type="text" v-model="title" />
+            <input id="adđress" type="text" v-model="title" required />
           </div>
           <button>Đăng ký</button>
         </form>
