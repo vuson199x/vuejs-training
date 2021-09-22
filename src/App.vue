@@ -36,15 +36,17 @@ export default {
 }
 
 .search-Input {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  /* justify-content: space-between; */
   margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 .button {
   border: none;
   color: white;
-  padding: 15px 32px;
+  padding: 12px 32px;
+  border-radius: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -56,6 +58,7 @@ export default {
   border: none;
   color: white;
   padding: 10px 32px;
+  border-radius: 5px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -205,6 +208,11 @@ a {
 .animate {
   -webkit-animation: animatezoom 0.6s;
   animation: animatezoom 0.6s;
+}
+
+.custom-select {
+  width: 150px;
+  outline: none;
 }
 
 @-webkit-keyframes animatezoom {

@@ -6,20 +6,20 @@
       <input
         type="text"
         id="myInput"
-        placeholder="Search for product.."
+        placeholder="Search for tags..."
         v-on:keyup.enter="onSeach"
         v-model="params.keyword"
       />
-      <button class="button success" v-on:click="onSeach">Tìm kiếm</button>
+      <button class="button success" v-on:click="onSeach">Search</button>
       <button class="button success" v-on:click="isVisibleAddModal">
-        Thêm mới
+        Add new tag
       </button>
     </div>
 
     <table id="table">
       <tr>
-        <th>ID</th>
-        <th>Name</th>
+        <th v-on:click="sortName('id')">ID</th>
+        <th v-on:click="sortName('name')">Name</th>
         <th>UserId</th>
         <th>Product</th>
         <th></th>
@@ -70,8 +70,8 @@ export default {
       params: {
         page: 1,
         size: 0,
-        sortName: "",
-        sortType: "",
+        sortName: "id",
+        sortType: "desc",
         keyword: ""
       }
     };
@@ -92,6 +92,11 @@ export default {
       this.isVisible = false;
     },
     onSeach() {
+      this.getData();
+    },
+    sortName(value) {
+      console.log("value");
+      this.params.sortName = value;
       this.getData();
     },
     async onDelete(tag) {

@@ -2,23 +2,36 @@
   <div class="container">
     <h1>Category</h1>
     <!-- {{ result }} -->
+
     <div class="search-Input">
-      <input
-        type="text"
-        id="myInput"
-        placeholder="Search for product.."
-        v-on:keyup.enter="onSeach"
-        v-model="params.keyword"
-      />
-      <button class="button success" v-on:click="onSeach">Tìm kiếm</button>
-      <button class="button success" v-on:click="isVisibleAddModal">
-        Thêm mới
-      </button>
+      <div>
+        <input
+          type="text"
+          id="myInput"
+          placeholder="Search for categories.."
+          v-on:keyup.enter="onSeach"
+          v-model="params.keyword"
+        />
+        <button class="button success" v-on:click="onSeach">Search</button>
+        <!-- <select class="form-control custom-select" id="sel1">
+          <option></option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select> -->
+        <button
+          style="float: right"
+          class="button success"
+          v-on:click="isVisibleAddModal"
+        >
+          Add new category
+        </button>
+      </div>
     </div>
     <table id="table">
       <tr>
-        <th>ID</th>
-        <th>Name</th>
+        <th v-on:click="sortName('id')">ID</th>
+        <th v-on:click="sortName('name')">Name</th>
         <th></th>
       </tr>
       <tr v-for="category in categories">
@@ -68,8 +81,8 @@ export default {
       params: {
         page: 1,
         size: 0,
-        sortName: "",
-        sortType: "",
+        sortName: "id",
+        sortType: "desc",
         keyword: ""
       }
     };
@@ -79,6 +92,10 @@ export default {
   },
   methods: {
     onSeach(e) {
+      this.getData();
+    },
+    sortName(value) {
+      this.params.sortName = value;
       this.getData();
     },
     isVisibleEditModal(data) {

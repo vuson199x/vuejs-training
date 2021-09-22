@@ -6,26 +6,28 @@
       <input
         type="text"
         id="myInput"
-        placeholder="Search for product.."
+        placeholder="Search for products..."
         v-on:keyup.enter="onSeach"
         v-model="params.keyword"
       />
-      <button class="button success" v-on:click="onSeach">Tìm kiếm</button>
+      <button class="button success" v-on:click="onSeach">Search</button>
       <button class="button success" v-on:click="isVisibleAddModal">
-        Thêm mới
+        Add new product
       </button>
     </div>
 
     <table id="table">
       <tr>
-        <th>ID</th>
-        <th>Name</th>
+        <th v-on:click="sortName('id')">ID</th>
+        <th v-on:click="sortName('title')">Title</th>
         <th>Category</th>
         <th>Tags</th>
         <th></th>
       </tr>
       <tr v-for="product in products">
-        <td style="width: 150px">{{ product.id }}</td>
+        <td style="width: 150px">
+          {{ product.id }}
+        </td>
         <td>{{ product.title }}</td>
         <td>{{ product.category.name }}</td>
         <td>
@@ -74,8 +76,8 @@ export default {
       params: {
         page: 1,
         size: 0,
-        sortName: "",
-        sortType: "",
+        sortName: "id",
+        sortType: "desc",
         keyword: ""
       }
     };
@@ -96,6 +98,11 @@ export default {
       this.isVisible = false;
     },
     onSeach(e) {
+      this.getData();
+    },
+    sortName(value) {
+      console.log("value");
+      this.params.sortName = value;
       this.getData();
     },
     async onDelete(product) {
