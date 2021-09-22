@@ -15,5 +15,8 @@ export default {
   },
   putTag(payload) {
     return Api().put(`/api/tag/update/${payload.id}`, payload.data);
+  },
+  getListDetail(id) {
+    return Api().get(`/api/tag/view/${id}`);
   }
 };

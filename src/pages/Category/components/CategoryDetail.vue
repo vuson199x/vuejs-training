@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <h1>CategoryDetail</h1>
+  <div style="margin-left: 2rem; ">
+    <h1>ProductDetail</h1>
+    <div>id: {{ category.id }}</div>
+    <div>name: {{ category.name }}</div>
+    <div>updatedAt :{{ category.updatedAt }}</div>
+    <div>createdAt: {{ category.createdAt }}</div>
+    <div>user_id: {{ category.user_id }}</div>
   </div>
 </template>
 
@@ -20,7 +25,7 @@ export default {
       try {
         const response = await CategoryService.getListDetail(this.categoryId);
         console.log("response 123", response);
-        // this.category = response.qas;
+        this.category = response.category;
       } catch (error) {
         console.log(error);
       }

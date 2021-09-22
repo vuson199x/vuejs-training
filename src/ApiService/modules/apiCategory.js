@@ -17,6 +17,6 @@ export default {
     return Api().delete(`/api/category/delete/${id}`);
   },
   getListDetail(id) {
-    return Api().get(`/api/category/detail/${id}`);
+    return Api().get(`/api/category/view/${id}`);
   }
 };

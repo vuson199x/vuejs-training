@@ -7,7 +7,8 @@ import Product from "../pages/Product";
 import Login from "../pages/Login";
 import Error from "../pages/404page";
 import CategoryDetail from "../pages/Category/components/CategoryDetail";
-import ProductDetail from "../pages/Product/ProductDetail";
+import ProductDetail from "../pages/Product/components/ProductDetail";
+import TagDetail from "../pages/Tags/components/TagDetail";
 import Cookies from "js-cookie";
 import { SESSION_ID } from "../utils/contants";
 Vue.use(VueRouter);
@@ -23,11 +24,11 @@ const routes = [
     name: "Tags",
     component: Tags
   },
-  // {
-  //   path: "/tags/:userId/:tagId",
-  //   name: "TagDetail",
-  //   component: TagDetail
-  // },
+  {
+    path: "/tags/:userId/:tagId",
+    name: "TagDetail",
+    component: TagDetail
+  },
   {
     path: "/category/:id",
     name: "Category",

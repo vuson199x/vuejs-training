@@ -25,39 +25,42 @@
         Add new tag
       </button>
     </div>
-
-    <table id="table">
-      <tr>
-        <th v-on:click="sortName('id')">ID</th>
-        <th v-on:click="sortName('name')">Name</th>
-        <th>UserId</th>
-        <th>Product</th>
-        <th></th>
-      </tr>
-      <tr v-for="tag in tags">
-        <td style="width: 150px">{{ tag.id }}</td>
-        <td>{{ tag.name }}</td>
-        <td>{{ tag.user_id }}</td>
-        <td>
-          <div v-for="item in tag.qas">
-            {{ item }}
-          </div>
-        </td>
-        <button class="sm-button primary" v-on:click="isVisibleEditModal(tag)">
-          Sửa
-        </button>
-        <!-- <button
-          class="sm-button success"
-          v-on:click="$router.push(`/tag/${id}/${tag.id}`)"
-        >
-          Detail
-        </button> -->
-        <button class="sm-button danger" v-on:click="onDelete(tag)">
-          Xóa
-        </button>
-      </tr>
-    </table>
-
+    <div style="overflow-x:auto;">
+      <table id="table">
+        <tr>
+          <th v-on:click="sortName('id')">ID</th>
+          <th v-on:click="sortName('name')">Name</th>
+          <th>UserId</th>
+          <th>Product</th>
+          <th></th>
+        </tr>
+        <tr v-for="tag in tags">
+          <td style="width: 150px">{{ tag.id }}</td>
+          <td>{{ tag.name }}</td>
+          <td>{{ tag.user_id }}</td>
+          <td>
+            <div v-for="item in tag.qas">
+              {{ item }}
+            </div>
+          </td>
+          <button
+            class="sm-button primary"
+            v-on:click="isVisibleEditModal(tag)"
+          >
+            Sửa
+          </button>
+          <button
+            class="sm-button success"
+            v-on:click="$router.push(`/tags/${id}/${tag.id}`)"
+          >
+            Detail
+          </button>
+          <button class="sm-button danger" v-on:click="onDelete(tag)">
+            Xóa
+          </button>
+        </tr>
+      </table>
+    </div>
     <AddEditTag
       v-if="isVisible"
       v-bind:isVisible="isVisible"

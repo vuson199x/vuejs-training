@@ -26,45 +26,47 @@
       </button>
     </div>
 
-    <table id="table">
-      <tr>
-        <th v-on:click="sortName('id')">ID</th>
-        <th v-on:click="sortName('title')">Title</th>
-        <th>Category</th>
-        <th>Tags</th>
-        <th></th>
-      </tr>
-      <tr v-for="product in products">
-        <td style="width: 150px">
-          {{ product.id }}
-        </td>
-        <td>{{ product.title }}</td>
-        <td>{{ product.category.name }}</td>
-        <td>
-          <div v-for="item in product.tags">
-            {{ item.name }}
-          </div>
-        </td>
-        <td>
-          <button
-            class="sm-button primary"
-            v-on:click="isVisibleEditModal(product)"
-          >
-            Sửa
-          </button>
-          <!-- <button
-            class="sm-button success"
-            v-on:click="$router.push(`/product/${id}/${product.id}`)"
-          >
-            Detail
-          </button> -->
+    <div style="overflow-x:auto;">
+      <table id="table">
+        <tr>
+          <th v-on:click="sortName('id')">ID</th>
+          <th v-on:click="sortName('title')">Title</th>
+          <th>Category</th>
+          <th>Tags</th>
+          <th></th>
+        </tr>
+        <tr v-for="product in products">
+          <td style="width: 150px">
+            {{ product.id }}
+          </td>
+          <td>{{ product.title }}</td>
+          <td>{{ product.category.name }}</td>
+          <td>
+            <div v-for="item in product.tags">
+              {{ item.name }}
+            </div>
+          </td>
+          <td>
+            <button
+              class="sm-button primary"
+              v-on:click="isVisibleEditModal(product)"
+            >
+              Sửa
+            </button>
+            <button
+              class="sm-button success"
+              v-on:click="$router.push(`/product/${id}/${product.id}`)"
+            >
+              Detail
+            </button>
 
-          <button class="sm-button danger" v-on:click="onDelete(product)">
-            Xóa
-          </button>
-        </td>
-      </tr>
-    </table>
+            <button class="sm-button danger" v-on:click="onDelete(product)">
+              Xóa
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
 
     <AddEditProduct
       v-if="isVisible"

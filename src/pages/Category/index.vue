@@ -33,34 +33,36 @@
         </button>
       </div>
     </div>
-    <table id="table">
-      <tr>
-        <th v-on:click="sortName('id')">ID</th>
-        <th v-on:click="sortName('name')">Name</th>
-        <th></th>
-      </tr>
-      <tr v-for="category in categories">
-        <td style="width: 150px">{{ category.id }}</td>
-        <td>{{ category.name }}</td>
-        <td style="text-align: center, width: 200px">
-          <button
-            class="sm-button primary"
-            v-on:click="isVisibleEditModal(category)"
-          >
-            Edit
-          </button>
-          <!-- <button
-            class="sm-button success"
-            v-on:click="$router.push(`/category/${id}/${category.id}`)"
-          >
-            Detail
-          </button> -->
-          <button class="sm-button danger" v-on:click="onDelete(category)">
-            Detele
-          </button>
-        </td>
-      </tr>
-    </table>
+    <div style="overflow-x:auto;">
+      <table id="table">
+        <tr>
+          <th v-on:click="sortName('id')">ID</th>
+          <th v-on:click="sortName('name')">Name</th>
+          <th></th>
+        </tr>
+        <tr v-for="category in categories">
+          <td style="width: 150px">{{ category.id }}</td>
+          <td>{{ category.name }}</td>
+          <td style="text-align: center, width: 200px">
+            <button
+              class="sm-button primary"
+              v-on:click="isVisibleEditModal(category)"
+            >
+              Edit
+            </button>
+            <button
+              class="sm-button success"
+              v-on:click="$router.push(`/category/${id}/${category.id}`)"
+            >
+              Detail
+            </button>
+            <button class="sm-button danger" v-on:click="onDelete(category)">
+              Detele
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
 
     <AddEditCategory
       v-if="isVisible"

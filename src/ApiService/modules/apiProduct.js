@@ -17,6 +17,6 @@ export default {
     return Api().put(`/api/qa/update/${payload.id}`, payload.data);
   },
   getListDetail(id) {
-    return Api().get(`/api/qa/detail/${id}`);
+    return Api().get(`/api/qa/view/${id}`);
   }
 };

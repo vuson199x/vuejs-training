@@ -96,6 +96,7 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  border-spacing: 0;
 }
 
 #table td,
