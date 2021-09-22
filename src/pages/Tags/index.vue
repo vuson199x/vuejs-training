@@ -8,8 +8,12 @@
         id="myInput"
         placeholder="Search for product.."
         v-on:keyup.enter="onSeach"
+        v-model="params.keyword"
       />
-      <button class="button success">Tìm kiếm</button>
+      <button class="button success" v-on:click="onSeach">Tìm kiếm</button>
+      <button class="button success" v-on:click="isVisibleAddModal">
+        Thêm mới
+      </button>
     </div>
 
     <table id="table">
@@ -29,10 +33,18 @@
             {{ item }}
           </div>
         </td>
-        <td>
-          <button>Sửa</button>
-          <button>Xóa</button>
-        </td>
+        <button class="sm-button primary" v-on:click="isVisibleEditModal(tag)">
+          Sửa
+        </button>
+        <!-- <button
+          class="sm-button success"
+          v-on:click="$router.push(`/tag/${id}/${tag.id}`)"
+        >
+          Detail
+        </button> -->
+        <button class="sm-button danger" v-on:click="onDelete(tag)">
+          Xóa
+        </button>
       </tr>
     </table>
   </div>
@@ -45,7 +57,8 @@ export default {
     return {
       id: this.$route.params.id,
       tags: [],
-      user: null,
+      dataUpdate: null,
+      isVisible: false,
       params: {
         page: 1,
         size: 18,
@@ -56,11 +69,37 @@ export default {
     };
   },
   methods: {
-    onSeach(e) {
-      this.params.keyword = e.target.value;
+    isVisibleEditModal(data) {
+      this.dataUpdate = data;
+      this.isVisible = true;
+    },
+    isVisibleAddModal() {
+      this.isVisible = true;
+    },
+    handleCancelEvent() {
+      this.dataUpdate = null;
+      this.isVisible = false;
+    },
+    onSeach() {
+      this.getData();
+    },
+    async onDelete(tag) {
+      console.log("tag", tag);
+      try {
+        if (window.confirm(`Are you want to delete this tag?`)) {
+          await TagService.deleteTag(tag.id);
+          this.getData();
+          swal({
+            title: "Success",
+            text: `Delete ${tag.name} successfully!`,
+            icon: "success"
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     },
     async getData() {
-      console.log("id", this.id);
       try {
         const payload = {
           userId: this.id,
@@ -81,10 +120,6 @@ export default {
   },
   created() {
     this.getData();
-  },
-  updated() {
-    // this.getData();
-    console.log("123123123213");
   }
 };
 </script>

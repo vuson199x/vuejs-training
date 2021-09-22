@@ -23,6 +23,11 @@ const routes = [
     name: "Tags",
     component: Tags
   },
+  // {
+  //   path: "/tags/:userId/:tagId",
+  //   name: "TagDetail",
+  //   component: TagDetail
+  // },
   {
     path: "/category/:id",
     name: "Category",

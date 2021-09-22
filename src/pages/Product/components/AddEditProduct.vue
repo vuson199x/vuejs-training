@@ -1,21 +1,20 @@
 <template>
   <div class="add-edit">
     <div id="id01" class="modal" v-if="isVisible">
-      <form @submit.prevent="onAddCategory" class="modal-content animate">
+      <form @submit.prevent="onAddProduct" class="modal-content animate">
         <div class="imgcontainer">
-          {{ dataUpdate }}
-          <h3>{{ dataUpdate ? "Edit Category" : "Add new Category" }}</h3>
+          <h3>{{ dataUpdate ? "Edit product" : "Add new product" }}</h3>
           <span class="close" title="Close Modal" v-on:click="onCancelModal"
             >&times;</span
           >
         </div>
 
         <div class="container">
-          <label for="uname"><b>Category name</b></label>
+          <label for="uname"><b>Product name</b></label>
           <input
             type="text"
-            placeholder="Enter Category name"
-            name="category"
+            placeholder="Enter product name"
+            name="product"
             required
             v-model="name"
           />
@@ -49,8 +48,8 @@ export default {
     onCancelModal() {
       this.$emit("handleCancelEvent");
     },
-    onAddCategory() {
-      this.$emit("onCreateCategory", this.name);
+    onAddProduct() {
+      this.$emit("onCreateProduct", this.name);
       this.name = "";
     }
   },

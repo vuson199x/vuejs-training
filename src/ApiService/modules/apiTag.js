@@ -6,5 +6,8 @@ export default {
     return Api().get(
       `/api/tag/list?userId=${data.userId}&page=${data.page}&size=${data.size}&keyword=${data.keyword}`
     );
+  },
+  deleteTag(id) {
+    return Api().delete(`/api/tag/delete/${id}`);
   }
 };

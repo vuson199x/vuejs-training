@@ -11,7 +11,7 @@
         v-model="params.keyword"
       />
       <button class="button success" v-on:click="onSeach">Tìm kiếm</button>
-      <button class="button success" v-on:click="isVisibleModal">
+      <button class="button success" v-on:click="isVisibleAddModal">
         Thêm mới
       </button>
     </div>
@@ -27,7 +27,7 @@
         <td style="text-align: center, width: 200px">
           <button
             class="sm-button primary"
-            v-on:click="isVisibleModal(category)"
+            v-on:click="isVisibleEditModal(category)"
           >
             Edit
           </button>
@@ -81,12 +81,15 @@ export default {
     onSeach(e) {
       this.getData();
     },
-    isVisibleModal(data) {
-      console.log("data", data);
+    isVisibleEditModal(data) {
       this.dataUpdate = data;
       this.isVisible = true;
     },
+    isVisibleAddModal() {
+      this.isVisible = true;
+    },
     handleCancelEvent() {
+      this.dataUpdate = null;
       this.isVisible = false;
     },
     async onCreateCategory(name) {

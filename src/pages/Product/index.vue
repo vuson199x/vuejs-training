@@ -11,6 +11,9 @@
         v-model="params.keyword"
       />
       <button class="button success" v-on:click="onSeach">Tìm kiếm</button>
+      <button class="button success" v-on:click="isVisibleAddModal">
+        Thêm mới
+      </button>
     </div>
 
     <table id="table">
@@ -31,7 +34,12 @@
           </div>
         </td>
         <td>
-          <button class="sm-button primary">Sửa</button>
+          <button
+            class="sm-button primary"
+            v-on:click="isVisibleEditModal(product)"
+          >
+            Sửa
+          </button>
           <button
             class="sm-button success"
             v-on:click="$router.push(`/product/${id}/${product.id}`)"
@@ -44,16 +52,25 @@
         </td>
       </tr>
     </table>
+
+    <AddEditProduct
+      v-bind:isVisible="isVisible"
+      v-bind:dataUpdate="dataUpdate"
+      v-on:handleCancelEvent="handleCancelEvent"
+      v-on:onCreateProduct="onCreateProduct"
+    />
   </div>
 </template>
 <script>
 import ProductService from "../../ApiService/modules/apiProduct";
-
+import AddEditProduct from "./components/AddEditProduct.vue";
 export default {
   data() {
     return {
       id: this.$route.params.id,
       products: [],
+      isVisible: false,
+      dataUpdate: null,
       params: {
         page: 1,
         size: 0,
@@ -63,7 +80,21 @@ export default {
       }
     };
   },
+  components: {
+    AddEditProduct
+  },
   methods: {
+    isVisibleEditModal(data) {
+      this.dataUpdate = data;
+      this.isVisible = true;
+    },
+    isVisibleAddModal() {
+      this.isVisible = true;
+    },
+    handleCancelEvent() {
+      this.dataUpdate = null;
+      this.isVisible = false;
+    },
     onSeach(e) {
       this.getData();
     },
@@ -82,6 +113,21 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    async onCreateProduct(name) {
+      console.log(name);
+      // const payload = {
+      //   name: name,
+      //   user_id: this.id
+      // };
+      // await CategoryService.postCategory(payload);
+      // this.getData();
+      // this.isVisible = false;
+      // swal({
+      //   title: "Success",
+      //   text: `Add "${name}" category successfully!`,
+      //   icon: "success"
+      // });
     },
     async getData() {
       console.log("id", this.id);
