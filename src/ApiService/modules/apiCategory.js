@@ -7,6 +7,9 @@ export default {
       `/api/category/list?userId=${data.userId}&page=${data.page}&size=${data.size}&keyword=${data.keyword}`
     );
   },
+  postCategory(data) {
+    return Api().post(`/api/category/create`, data);
+  },
   deleteCategory(id) {
     return Api().delete(`/api/category/delete/${id}`);
   },

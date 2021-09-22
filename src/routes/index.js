@@ -6,7 +6,7 @@ import Category from "../pages/Category";
 import Product from "../pages/Product";
 import Login from "../pages/Login";
 import Error from "../pages/404page";
-import CategoryDetail from "../pages/Category/CategoryDetail";
+import CategoryDetail from "../pages/Category/components/CategoryDetail";
 import ProductDetail from "../pages/Product/ProductDetail";
 import Cookies from "js-cookie";
 import { SESSION_ID } from "../utils/contants";

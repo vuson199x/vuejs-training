@@ -1,12 +1,9 @@
 <template>
   <div class="add-edit">
     <div id="id01" class="modal" v-if="isVisible">
-      <form
-        class="modal-content animate"
-        action="/action_page.php"
-        method="post"
-      >
+      <form @submit.prevent="onAddCategory" class="modal-content animate">
         <div class="imgcontainer">
+          {{ dataUpdate }}
           <h3>Add new Category</h3>
           <span class="close" title="Close Modal" v-on:click="onCancelModal"
             >&times;</span
@@ -20,9 +17,10 @@
             placeholder="Enter Category name"
             name="category"
             required
+            v-model="name"
           />
 
-          <button type="submit" class="sm-button success display-center">
+          <button class="sm-button success display-center">
             Thêm mới
           </button>
         </div>
@@ -35,14 +33,25 @@
 export default {
   name: "addeditcategory",
   data() {
-    return {};
+    return {
+      name: ""
+    };
   },
   props: {
-    isVisible: Boolean
+    isVisible: Boolean,
+    dataUpdate: {
+      type: Object,
+      required: false,
+      default: {}
+    }
   },
   methods: {
     onCancelModal() {
       this.$emit("handleCancelEvent");
+    },
+    onAddCategory() {
+      this.$emit("onCreateCategory", this.name);
+      this.name = "";
     }
   },
   computed: {}
@@ -51,7 +60,6 @@ export default {
 
 <style>
 .add-edit form {
-  border: 3px solid #f1f1f1;
   width: 550px;
 }
 

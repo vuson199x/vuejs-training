@@ -2,7 +2,7 @@
   <div class="error">
     <h3>Errors</h3>
     <p>Have some error....</p>
-    <button class="button" v-on:click="$router.push('/')">
+    <button class="button success" v-on:click="$router.push('/')">
       Back to home
     </button>
   </div>

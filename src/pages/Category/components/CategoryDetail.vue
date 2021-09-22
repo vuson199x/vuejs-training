@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CategoryService from "../../ApiService/modules/apiCategory";
+import CategoryService from "../../../ApiService/modules/apiCategory";
 
 export default {
   data() {

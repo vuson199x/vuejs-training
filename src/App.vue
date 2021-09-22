@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import CompHeader from "./components/CompHeader.vue";
+import CompHeader from "./common/CompHeader.vue";
 
 export default {
   components: { CompHeader },

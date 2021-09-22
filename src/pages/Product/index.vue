@@ -1,15 +1,16 @@
 <template lang="">
   <div class="container">
     <h1>Product</h1>
-    <!-- {{ result }} -->
+    {{ params.keyword }}
     <div class="search-Input">
       <input
         type="text"
         id="myInput"
         placeholder="Search for product.."
         v-on:keyup.enter="onSeach"
+        v-model="params.keyword"
       />
-      <button class="button success">Tìm kiếm</button>
+      <button class="button success" v-on:click="onSeach">Tìm kiếm</button>
     </div>
 
     <table id="table">
@@ -55,7 +56,7 @@ export default {
       products: [],
       params: {
         page: 1,
-        size: 18,
+        size: 0,
         sortName: "",
         sortType: "",
         keyword: ""
@@ -64,14 +65,19 @@ export default {
   },
   methods: {
     onSeach(e) {
-      this.params.keyword = e.target.value;
+      this.getData();
     },
     async onDelete(product) {
       console.log("product", product);
       try {
-        if (window.confirm(`Bạn có chắc chắn muốn xóa sản phẩm này`)) {
+        if (window.confirm(`Are you want to delete this product?`)) {
           await ProductService.deleteProduct(product.id);
-          getData();
+          this.getData();
+          swal({
+            title: "Success",
+            text: `Delete ${product.title} successfully!`,
+            icon: "success"
+          });
         }
       } catch (error) {
         console.log(error);
@@ -99,10 +105,6 @@ export default {
   },
   created() {
     this.getData();
-  },
-  updated() {
-    // this.getData();
-    console.log("123123123213");
   }
 };
 </script>

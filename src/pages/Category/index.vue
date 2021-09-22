@@ -8,8 +8,9 @@
         id="myInput"
         placeholder="Search for product.."
         v-on:keyup.enter="onSeach"
+        v-model="params.keyword"
       />
-      <button class="button success">Tìm kiếm</button>
+      <button class="button success" v-on:click="onSeach">Tìm kiếm</button>
       <button class="button success" v-on:click="isVisibleModal">
         Thêm mới
       </button>
@@ -24,7 +25,10 @@
         <td style="width: 150px">{{ category.id }}</td>
         <td>{{ category.name }}</td>
         <td style="text-align: center, width: 200px">
-          <button class="sm-button primary" v-on:click="isVisibleModal">
+          <button
+            class="sm-button primary"
+            v-on:click="isVisibleModal(category)"
+          >
             Edit
           </button>
           <button
@@ -42,40 +46,75 @@
 
     <AddEditCategory
       v-bind:isVisible="isVisible"
+      v-bind:dataUpdate="dataUpdate"
       v-on:handleCancelEvent="handleCancelEvent"
+      v-on:onCreateCategory="onCreateCategory"
     />
   </div>
 </template>
 
 <script>
+import swal from "sweetalert";
 import CategoryService from "../../ApiService/modules/apiCategory";
-import AddEditCategory from "../Category/AddEditCategory.vue";
+import AddEditCategory from "./components/AddEditCategory.vue";
 
 export default {
   data() {
     return {
       id: this.$route.params.id,
       categories: [],
-      user: null,
-      isVisible: false
+      isVisible: false,
+      dataUpdate: null,
+      params: {
+        page: 1,
+        size: 0,
+        sortName: "",
+        sortType: "",
+        keyword: ""
+      }
     };
   },
   components: {
     AddEditCategory
   },
   methods: {
-    isVisibleModal() {
+    onSeach(e) {
+      this.getData();
+    },
+    isVisibleModal(data) {
+      console.log("data", data);
+      this.dataUpdate = data;
       this.isVisible = true;
     },
     handleCancelEvent() {
       this.isVisible = false;
     },
+    async onCreateCategory(name) {
+      console.log(name);
+      const payload = {
+        name: name,
+        user_id: this.id
+      };
+      await CategoryService.postCategory(payload);
+      this.getData();
+      this.isVisible = false;
+      swal({
+        title: "Success",
+        text: `Add "${name}" category successfully!`,
+        icon: "success"
+      });
+    },
     async onDelete(category) {
       console.log("category", category);
       try {
-        if (window.confirm(`Bạn có chắc chắn muốn xóa danh mục này`)) {
+        if (window.confirm(`Are you want to delete this category?`)) {
           await CategoryService.deleteCategory(category.id);
-          getData();
+          this.getData();
+          swal({
+            title: "Success",
+            text: `Delete category "${category.name}" successfully!`,
+            icon: "success"
+          });
         }
       } catch (error) {
         console.log(error);
@@ -86,11 +125,7 @@ export default {
       try {
         const payload = {
           userId: this.id,
-          page: 1,
-          size: 18,
-          sortName: "",
-          // sortType: asc || desc : string,
-          keyword: ""
+          ...this.params
         };
         const response = await CategoryService.getList(payload);
         console.log("response 123", response);
