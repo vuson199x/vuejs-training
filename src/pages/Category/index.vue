@@ -44,11 +44,13 @@
     <div style="overflow-x:auto;">
       <table id="table">
         <tr>
+          <!-- <th>STT</th> -->
           <th v-on:click="sortName('id')">ID</th>
           <th v-on:click="sortName('name')">Name</th>
           <th></th>
         </tr>
-        <tr v-for="category in categories">
+        <tr v-for="(category, index) in displayedCategories">
+          <!-- <td style="width: 50px">{{ index + 1 }}</td> -->
           <td style="width: 150px">{{ category.id }}</td>
           <td v-html="category.name"></td>
           <td style="text-align: center, width: 200px">
@@ -70,6 +72,24 @@
           </td>
         </tr>
       </table>
+
+      <div class="pagination">
+        <a
+          v-if="pagination.currentPage != 1"
+          v-on:click="pagination.currentPage--"
+          >&laquo;</a
+        >
+        <a
+          v-for="pag in pagination.totalPage"
+          @click="pagination.currentPage = pag"
+          >{{ pag }}</a
+        >
+        <a
+          v-if="pagination.currentPage < pagination.totalPage.length"
+          v-on:click="pagination.currentPage++"
+          >&raquo;</a
+        >
+      </div>
     </div>
 
     <AddEditCategory
@@ -95,6 +115,11 @@ export default {
       categories: [],
       isVisible: false,
       dataUpdate: null,
+      pagination: {
+        totalPage: [],
+        currentPage: 1,
+        limit: 20
+      },
       params: {
         page: 1,
         size: 0,
@@ -202,11 +227,33 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    setPages() {
+      var numPages = this.categories.length / this.pagination.limit;
+      for (let i = 0; i < numPages; i++) {
+        var pageNum = i + 1;
+        this.pagination.totalPage.push(pageNum);
+      }
+    },
+    paginate(categories) {
+      let page = this.pagination.currentPage;
+      let perPage = this.pagination.limit;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return categories.slice(from, to);
+    }
+  },
+  watch: {
+    categories() {
+      this.setPages();
     }
   },
   computed: {
     result() {
       return this.$store.state.AUTH.user;
+    },
+    displayedCategories() {
+      return this.paginate(this.categories);
     }
   },
   created() {

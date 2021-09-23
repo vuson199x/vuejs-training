@@ -45,7 +45,7 @@
           <th>Tags</th>
           <th></th>
         </tr>
-        <tr v-for="product in products">
+        <tr v-for="product in displayedProducts">
           <td style="width: 150px">
             {{ product.id }}
           </td>
@@ -76,6 +76,24 @@
           </td>
         </tr>
       </table>
+
+      <div class="pagination">
+        <a
+          v-if="pagination.currentPage != 1"
+          v-on:click="pagination.currentPage--"
+          >&laquo;</a
+        >
+        <a
+          v-for="pag in pagination.totalPage"
+          @click="pagination.currentPage = pag"
+          >{{ pag }}</a
+        >
+        <a
+          v-if="pagination.currentPage < pagination.totalPage.length"
+          v-on:click="pagination.currentPage++"
+          >&raquo;</a
+        >
+      </div>
     </div>
 
     <AddEditProduct
@@ -98,6 +116,11 @@ export default {
       products: [],
       isVisible: false,
       dataUpdate: null,
+      pagination: {
+        totalPage: [],
+        currentPage: 1,
+        limit: 20
+      },
       params: {
         page: 1,
         size: 0,
@@ -197,11 +220,33 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    setPages() {
+      var numPages = this.products.length / this.pagination.limit;
+      for (let i = 0; i < numPages; i++) {
+        var pageNum = i + 1;
+        this.pagination.totalPage.push(pageNum);
+      }
+    },
+    paginate(products) {
+      let page = this.pagination.currentPage;
+      let perPage = this.pagination.limit;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return products.slice(from, to);
     }
   },
   computed: {
     result() {
       return this.$store.state.AUTH.user;
+    },
+    displayedProducts() {
+      return this.paginate(this.products);
+    }
+  },
+  watch: {
+    products() {
+      this.setPages();
     }
   },
   created() {

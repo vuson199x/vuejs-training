@@ -44,7 +44,7 @@
           <th>Product</th>
           <th></th>
         </tr>
-        <tr v-for="tag in tags">
+        <tr v-for="tag in displayedTags">
           <td style="width: 150px">{{ tag.id }}</td>
           <td v-html="tag.name"></td>
           <td>{{ tag.user_id }}</td>
@@ -70,6 +70,24 @@
           </button>
         </tr>
       </table>
+
+      <div class="pagination">
+        <a
+          v-if="pagination.currentPage != 1"
+          v-on:click="pagination.currentPage--"
+          >&laquo;</a
+        >
+        <a
+          v-for="pag in pagination.totalPage"
+          @click="pagination.currentPage = pag"
+          >{{ pag }}</a
+        >
+        <a
+          v-if="pagination.currentPage < pagination.totalPage.length"
+          v-on:click="pagination.currentPage++"
+          >&raquo;</a
+        >
+      </div>
     </div>
     <AddEditTag
       v-if="isVisible"
@@ -92,6 +110,11 @@ export default {
       tags: [],
       dataUpdate: null,
       isVisible: false,
+      pagination: {
+        totalPage: [],
+        currentPage: 1,
+        limit: 20
+      },
       params: {
         page: 1,
         size: 0,
@@ -190,11 +213,33 @@ export default {
         text: `Update tag successfully!`,
         icon: "success"
       });
+    },
+    setPages() {
+      var numPages = this.tags.length / this.pagination.limit;
+      for (let i = 0; i < numPages; i++) {
+        var pageNum = i + 1;
+        this.pagination.totalPage.push(pageNum);
+      }
+    },
+    paginate(tags) {
+      let page = this.pagination.currentPage;
+      let perPage = this.pagination.limit;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return tags.slice(from, to);
+    }
+  },
+  watch: {
+    tags() {
+      this.setPages();
     }
   },
   computed: {
     result() {
       return this.$store.state.AUTH.user;
+    },
+    displayedTags() {
+      return this.paginate(this.tags);
     }
   },
   created() {

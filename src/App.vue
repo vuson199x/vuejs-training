@@ -110,6 +110,29 @@ export default {
   margin-top: 1rem;
 }
 
+.pagination {
+  display: inline-block;
+  margin-top: 10px;
+  float: right;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #eee;
+}
+
+.pagination a.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
 #table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
