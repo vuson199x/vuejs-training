@@ -4,7 +4,7 @@
     <!-- {{ result }} -->
 
     <div class="search-Input">
-      <div>
+      <div class="search-items">
         <input
           type="text"
           id="myInput"
@@ -12,7 +12,15 @@
           v-on:keyup.enter="onSeach"
           v-model="params.keyword"
         />
-        <button class="button success" v-on:click="onSeach">Search</button>
+        <button
+          class="button success"
+          v-on:click="onSeach"
+          style="margin-left: 10px"
+        >
+          Search
+        </button>
+      </div>
+      <div class="search-button">
         <div class="dropdown">
           <button class="dropbtn">Sắp xếp</button>
           <div class="dropdown-content">
@@ -42,7 +50,7 @@
         </tr>
         <tr v-for="category in categories">
           <td style="width: 150px">{{ category.id }}</td>
-          <td>{{ category.name }}</td>
+          <td v-html="category.name"></td>
           <td style="text-align: center, width: 200px">
             <button
               class="sm-button primary"

@@ -2,28 +2,38 @@
   <div class="container">
     <h1>Tags</h1>
     <div class="search-Input">
-      <input
-        type="text"
-        id="myInput"
-        placeholder="Search for tags..."
-        v-on:keyup.enter="onSeach"
-        v-model="params.keyword"
-      />
-      <button class="button success" v-on:click="onSeach">Search</button>
-      <div class="dropdown">
-        <button class="dropbtn">Sắp xếp</button>
-        <div class="dropdown-content">
-          <span v-on:click="sortType('asc')">Asc</span>
-          <span v-on:click="sortType('desc')">Desc</span>
-        </div>
+      <div class="search-items">
+        <input
+          type="text"
+          id="myInput"
+          placeholder="Search for tags..."
+          v-on:keyup.enter="onSeach"
+          v-model="params.keyword"
+        />
+        <button
+          class="button success"
+          v-on:click="onSeach"
+          style="margin-left: 10px"
+        >
+          Search
+        </button>
       </div>
-      <button
-        class="button success"
-        style="float: right"
-        v-on:click="isVisibleAddModal"
-      >
-        Add new tag
-      </button>
+      <div class="search-button">
+        <div class="dropdown">
+          <button class="dropbtn">Sắp xếp</button>
+          <div class="dropdown-content">
+            <span v-on:click="sortType('asc')">Asc</span>
+            <span v-on:click="sortType('desc')">Desc</span>
+          </div>
+        </div>
+        <button
+          class="button success"
+          style="float: right"
+          v-on:click="isVisibleAddModal"
+        >
+          Add new tag
+        </button>
+      </div>
     </div>
     <div style="overflow-x:auto;">
       <table id="table">
@@ -36,7 +46,7 @@
         </tr>
         <tr v-for="tag in tags">
           <td style="width: 150px">{{ tag.id }}</td>
-          <td>{{ tag.name }}</td>
+          <td v-html="tag.name"></td>
           <td>{{ tag.user_id }}</td>
           <td>
             <div v-for="item in tag.qas">

@@ -3,7 +3,8 @@ import AuthServices from "../../ApiService/modules/auth";
 import router from "../../routes";
 const state = {
   user: null,
-  result: 0
+  result: 0,
+  cookies: null
 };
 const getters = {};
 const mutations = {
@@ -15,11 +16,8 @@ const actions = {
   async login({ commit }, crendentials) {
     try {
       const response = await AuthServices.login({ ...crendentials });
-      console.log("Login từ Store", response);
-      // commit("DO_SOMETHING");
       state.user = response;
       router.push("/");
-      console.log(state.user, "state.user");
     } catch (error) {
       console.log(error.response);
       swal({
@@ -32,8 +30,6 @@ const actions = {
   async register({ commit }, crendentials) {
     try {
       const response = await AuthServices.register({ ...crendentials });
-      console.log("Register từ Store", response);
-      // alert(response.message);
       swal({
         title: "Thành công",
         text: response.message,
@@ -46,6 +42,13 @@ const actions = {
         text: error.response.data.message,
         icon: "error"
       });
+    }
+  },
+  async logout({ commit }) {
+    try {
+      state.user = null;
+    } catch (error) {
+      console.log(error);
     }
   }
 };

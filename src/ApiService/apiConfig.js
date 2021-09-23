@@ -21,7 +21,6 @@ export default () => {
   };
   instance.interceptors.request.use(
     async config => {
-      console.log(config, "config request 27");
       config.headers.token = Cookies.get(SESSION_ID);
       return config;
     },
@@ -29,14 +28,12 @@ export default () => {
   );
   instance.interceptors.response.use(response => {
     const data = response.data;
-    console.log(response, "data response 34");
     if (
       (data && data.code === API_STATUS.RE_LOGIN) ||
       data.code === API_STATUS.NOT_FOUND
     ) {
       Cookies.set(SESSION_ID, "");
     } else if (data.accessToken) {
-      console.log(data.accessToken, "data.accessToken");
       Cookies.set(SESSION_ID, data.accessToken);
     }
     // else if (data && data.status !== API_CODE.SUCCESS) {

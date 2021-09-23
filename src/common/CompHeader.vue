@@ -1,6 +1,5 @@
 <template>
-  <div class="nav">
-    <!-- {{ user.id }} -->
+  <div class="nav" v-if="result">
     <ul>
       <li>
         <router-link to="/" active-class="active" exact="">Home</router-link>
@@ -27,14 +26,6 @@
         >
       </li>
       <li style="float: right" active-class="active" v-on:click="Logout">
-        <router-link to="/login">Đăng nhập</router-link>
-      </li>
-      <li
-        style="float: right"
-        active-class="active"
-        v-on:click="Logout"
-        v-if="cookies"
-      >
         <router-link to="/login">Đăng xuất</router-link>
       </li>
     </ul>
@@ -49,11 +40,12 @@ export default {
   name: "compheader",
   data() {
     return {
-      cookies: Cookies.get(SESSION_ID)
+      isAuth: ""
     };
   },
   methods: {
     Logout() {
+      this.$store.dispatch("AUTH/logout");
       Cookies.set(SESSION_ID, "");
       console.log("12312312312313");
     }

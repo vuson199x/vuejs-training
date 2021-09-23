@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <comp-header />
+    <comp-header v-if="isAuth" />
     <router-view />
   </div>
 </template>
@@ -12,7 +12,13 @@ export default {
   components: { CompHeader },
   name: "app",
   data() {
-    return {};
+    return {
+      isAuth: ""
+    };
+  },
+
+  updated() {
+    this.isAuth = this.$store.state.AUTH.user;
   }
 };
 </script>
@@ -28,7 +34,7 @@ export default {
 #myInput {
   background-position: 10px 10px;
   background-repeat: no-repeat;
-  width: 50%;
+  width: 87%;
   font-size: 16px;
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
@@ -36,10 +42,22 @@ export default {
 }
 
 .search-Input {
-  /* display: flex; */
-  /* justify-content: space-between; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin-bottom: 2rem;
   margin-top: 1rem;
+}
+
+.search-items {
+  width: 70%;
+  display: flex;
+}
+
+.search-button {
+  width: 22%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .button {
@@ -64,7 +82,7 @@ export default {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
-  /* margin: 8px; */
+  margin: 5px;
 }
 
 .success {
@@ -132,7 +150,7 @@ export default {
 .dropbtn {
   background-color: #4caf50;
   color: white;
-  padding: 12px 24px;
+  padding: 13px 24px;
   font-size: 16px;
   border: none;
   cursor: pointer;
@@ -271,6 +289,29 @@ a {
   }
   to {
     transform: scale(1);
+  }
+}
+
+@media (max-width: 1380px) {
+  .search-items {
+    width: 60%;
+  }
+  .search-button {
+    width: 35%;
+  }
+}
+@media (max-width: 992px) {
+  .search-items {
+    width: 100%;
+  }
+  .search-button {
+    width: 100%;
+    /* flex-direction: row-reverse; */
+    margin-top: 10px;
+    justify-content: unset;
+  }
+  .dropbtn {
+    margin-right: 10px;
   }
 }
 </style>
