@@ -1,10 +1,10 @@
+import Cookies from "js-cookie";
 import swal from "sweetalert";
 import AuthServices from "../../ApiService/modules/auth";
 import router from "../../routes";
 const state = {
   user: null,
-  result: 0,
-  cookies: null
+  result: 0
 };
 const getters = {};
 const mutations = {
@@ -13,6 +13,15 @@ const mutations = {
   // }
 };
 const actions = {
+  getLocalStorage() {
+    const user = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : null;
+    console.log("user", user);
+    if (user) {
+      state.user = user;
+    }
+  },
   async login({ commit }, crendentials) {
     try {
       const response = await AuthServices.login({ ...crendentials });
@@ -47,6 +56,8 @@ const actions = {
   async logout({ commit }) {
     try {
       state.user = null;
+      localStorage.setItem("user", "");
+      Cookies.set(SESSION_ID, "");
     } catch (error) {
       console.log(error);
     }

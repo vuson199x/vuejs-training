@@ -33,9 +33,6 @@
 </template>
 
 <script>
-import Cookies from "js-cookie";
-import { SESSION_ID } from "../utils/contants";
-
 export default {
   name: "compheader",
   data() {
@@ -46,10 +43,9 @@ export default {
   methods: {
     Logout() {
       this.$store.dispatch("AUTH/logout");
-      Cookies.set(SESSION_ID, "");
-      console.log("12312312312313");
     }
   },
+
   computed: {
     result() {
       return this.$store.state.AUTH.user;

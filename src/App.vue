@@ -8,6 +8,7 @@
 <script>
 import CompHeader from "./common/CompHeader.vue";
 import "ant-design-vue/dist/antd.css";
+
 export default {
   components: { CompHeader },
   name: "app",
@@ -16,7 +17,9 @@ export default {
       isAuth: ""
     };
   },
-
+  created() {
+    this.isAuth = this.$store.state.AUTH.user;
+  },
   updated() {
     this.isAuth = this.$store.state.AUTH.user;
   }

@@ -85,15 +85,15 @@ router.beforeEach((to, from, next) => {
     to.matched.some(record => record.meta.requiresAuth)
   );
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    console.log("store", store.state.AUTH.user);
-    if (!store.state.AUTH.user) {
+    store.dispatch("AUTH/getLocalStorage");
+    if (store.state.AUTH.user) {
+      next();
+    } else {
       console.log("123123123123 89 router");
       next({
         name: "Login",
         query: { redirect: to.fullPath }
       });
-    } else {
-      next();
     }
   } else {
     next();

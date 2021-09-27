@@ -33,7 +33,9 @@ export default () => {
       data.code === API_STATUS.NOT_FOUND
     ) {
       Cookies.set(SESSION_ID, "");
+      localStorage.setItem("user", "");
     } else if (data.accessToken) {
+      localStorage.setItem("user", JSON.stringify(data));
       Cookies.set(SESSION_ID, data.accessToken);
     }
     // else if (data && data.status !== API_CODE.SUCCESS) {
